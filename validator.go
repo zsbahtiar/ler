@@ -1,5 +1,7 @@
 package ler
 
+import "net/http"
+
 // Validation Functions
 func isValidCond(c string) bool {
 	validConds := []string{"AND", "OR"}
@@ -39,4 +41,44 @@ func isValidElem(e string) bool {
 	}
 
 	return false
+}
+
+var validConditions = map[string]struct{}{
+	"AND": {},
+	"OR":  {},
+}
+
+func isValidCondition(c string) bool {
+	_, isValid := validConditions[c]
+	return isValid
+}
+
+var validHttpMethods = map[string]struct{}{
+	"ALL":              {},
+	http.MethodGet:     {},
+	http.MethodHead:    {},
+	http.MethodPost:    {},
+	http.MethodPut:     {},
+	http.MethodPatch:   {},
+	http.MethodDelete:  {},
+	http.MethodConnect: {},
+	http.MethodOptions: {},
+	http.MethodTrace:   {},
+}
+
+func isValidHttpMethod(m string) bool {
+	_, isValid := validHttpMethods[m]
+	return isValid
+}
+
+var validElements = map[string]struct{}{
+	"URI":     {},
+	"HEADERS": {},
+	"BODY":    {},
+	"ANY":     {},
+}
+
+func isValidElement(e string) bool {
+	_, isValid := validElements[e]
+	return isValid
 }
